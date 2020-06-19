@@ -45,6 +45,13 @@ class App extends Component {
     }
   }
 
+  deleteItem(key) {
+    const filteredItems = this.state.items.filter(item => item.key !== key);
+    this.setState({
+      items: filteredItems
+    });
+  }
+
   render() {
     return (
       <div className="app">
@@ -59,7 +66,7 @@ class App extends Component {
             <button type="submit">Add</button>
           </form>
         </header>
-        <ListItems items={this.state.items}></ListItems>
+        <ListItems items={this.state.items} deleteItem={this.deleteItem} />
       </div>
     );
   }
