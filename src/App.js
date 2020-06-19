@@ -52,6 +52,20 @@ class App extends Component {
     });
   }
 
+  setUpdate(text, key) {
+    console.log("items:" + this.state.items);
+    const items = this.state.items;
+    items.map(item => {
+      if (item.key === key) {
+        console.log(item.key + "    " + key);
+        item.text = text;
+      }
+    });
+    this.setState({
+      items: items
+    });
+  }
+
   render() {
     return (
       <div className="app">
@@ -66,7 +80,11 @@ class App extends Component {
             <button type="submit">Add</button>
           </form>
         </header>
-        <ListItems items={this.state.items} deleteItem={this.deleteItem} />
+        <ListItems
+          items={this.state.items}
+          deleteItem={this.deleteItem}
+          setUpdate={this.setUpdate}
+        />
       </div>
     );
   }
