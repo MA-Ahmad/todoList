@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
+import ListItems from "./ListItems";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faTrash);
 
 class App extends Component {
   constructor(props) {
@@ -28,20 +33,33 @@ class App extends Component {
     e.preventDefault();
     const newItem = this.state.currentItem;
     console.log(newItem);
+    if (newItem.text !== "") {
+      const newItems = [...this.state.items, newItem];
+      this.setState({
+        items: newItems,
+        currentItem: {
+          text: "",
+          key: ""
+        }
+      });
+    }
   }
 
   render() {
     return (
       <div className="app">
-        <form id="to-do-form" onSubmit={this.addItem}>
-          <input
-            type="text"
-            placeholder="Enter Text"
-            value={this.state.currentItem.text}
-            onChange={this.handleInput}
-          />
-          <button type="submit">Add</button>
-        </form>
+        <header>
+          <form id="to-do-form" onSubmit={this.addItem}>
+            <input
+              type="text"
+              placeholder="Enter Text"
+              value={this.state.currentItem.text}
+              onChange={this.handleInput}
+            />
+            <button type="submit">Add</button>
+          </form>
+        </header>
+        <ListItems items={this.state.items}></ListItems>
       </div>
     );
   }
